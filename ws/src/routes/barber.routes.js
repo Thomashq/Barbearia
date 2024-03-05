@@ -5,10 +5,9 @@ const Barber = require('../models/barberShop');
 router.post('/', async(req, res) => {
     try{
         const barberShop = await new Barber(req.body).save();
-        res.json({barberShop});
-    }
-    catch(err){
-        res.json({error: true, message: err.message})
+        res.json({ barberShop });
+    } catch(err){
+        res.json({ error: true, message: err.message })
     }
 });
 

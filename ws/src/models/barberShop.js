@@ -6,31 +6,40 @@ const barberShop = new Schema({
         type: String,
         required: [true, 'Nome é obrigatório.']
     },
+
     foto: String,
+
     capa: String,
+
     email: {
         type: String,
-        required: [true, 'Nome é obrigatório.']
+        required: [true, 'E-mail é obrigatório.']
     },
+
     senha:{
         type: String,
-        default: null,
+        required: [true, 'Senha é obrigatório.']
     },
+
     telefone: String,
+
     endereco: {
         cidade: String,
         uf: String,
         cep: String,
         numero: String,
     },
-    geo: {
-        tipo: String,
-        cordinates: Array
-    },
+
+    // geo: {
+    //     tipo: String,
+    //     cordinates: Array
+    // },
+
     dataCadastro:{
         type: Date,
         default: Date.now,
     }
 });
-barberShop.index({geo: '2dsphere'});
+
+// barberShop.index({geo: '2dsphere'});
 module.exports = mongoose.model('BarberShop', barberShop)
