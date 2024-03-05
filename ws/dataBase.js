@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const URI = 'mongodb+srv://5q8loHFCsxSBBkx3:5q8loHFCsxSBBkx3@cluster0.6ppaf.mongodb.net/'
+const URI = 
 
 // mongoose.set('useNewUrlParser', true);
 // mongoose.set('useFindAndModify', false);
