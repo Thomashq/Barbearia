@@ -33,6 +33,11 @@ const service = new Schema({
         required: false
     },
 
+    descricao:{
+        type: String,
+        required: true
+    },
+    
     status: {
         type: String,
         required: true,
