@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
                 return false;
             }
             let jsonService = JSON.parse(service);
-            const newService = await Services(jsonService).Save();
+            const newService = await new Services(jsonService).save();
             //criação do arquivo 
             archives = arquivos.map((archive) => ({
                 referenciaId: newService._id,
