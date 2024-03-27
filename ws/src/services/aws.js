@@ -1,11 +1,12 @@
 const AWS = require('aws-sdk');
+require('dotenv').config();
 
 module.exports = {
-  IAM_USER_KEY: '',
-  IAM_USER_SECRET: '',
-  BUCKET_NAME: '',
-  AWS_REGION: '',
-  
+  IAM_USER_KEY: process.env.IAM_USER_KEY,
+  IAM_USER_SECRET: process.env.IAM_USER_SECRET,
+  BUCKET_NAME: process.env.BUCKET_NAME,
+  AWS_REGION: process.env.AWS_REGION,
+
   uploadToS3: function (file, filename, acl = 'public-read') {
     return new Promise((resolve, reject) => {
       let IAM_USER_KEY = this.IAM_USER_KEY;

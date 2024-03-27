@@ -5,6 +5,7 @@ const cors = require("cors");
 const connectBusboy = require('connect-busboy');
 const busboyBodyParser = require('busboy-body-parser');
 require('./dataBase');
+require('dotenv').config();
 
 //Middlewares
 app.use(morgan('dev'));

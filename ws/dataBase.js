@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+require('dotenv').config();
 const URI = 
 
 // mongoose.set('useNewUrlParser', true);
@@ -7,6 +7,6 @@ const URI =
 // mongoose.set('useCreateIndex', true);
 // mongoose.set('useUnifiedTopology', true); 
 
-mongoose.connect(URI)
+mongoose.connect(process.env.CONN)
 .then(() => console.log('DB is up'))
 .catch(() => console.log(err));
