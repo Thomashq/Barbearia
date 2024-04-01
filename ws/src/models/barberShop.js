@@ -30,10 +30,10 @@ const barberShop = new Schema({
         numero: String,
     },
 
-    // geo: {
-    //     tipo: String,
-    //     cordinates: Array
-    // },
+    geo: {
+        type: {type: String},
+        coordinates: [Number]
+    },
 
     dataCadastro:{
         type: Date,
@@ -41,5 +41,5 @@ const barberShop = new Schema({
     }
 });
 
-// barberShop.index({geo: '2dsphere'});
+barberShop.index({coordenadas: '2dsphere'});
 module.exports = mongoose.model('BarberShop', barberShop)

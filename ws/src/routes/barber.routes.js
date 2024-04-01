@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Barber = require('../models/barberShop');
 const Services = require('../models/service');
+const turf = require('@turf/turf');
 
 router.post('/', async(req, res) => {
     try{
@@ -17,11 +18,11 @@ router.get('/service/:barberShopId', async(req, res) => {
         const{ barberShopId } = req.params;
         const services = await Services.find({
             barberShopId,
-            satus: 'A'
+            status: 'A'
         }).select('_id titulo');
         
         res.json({
-            servicos: Services.map(s => ({label: s.titulo, value: s._id}))
+            servicos: services.map((s) => ({label: s.titulo, value: s._id})),
         });
         
     }catch(err){
@@ -29,4 +30,21 @@ router.get('/service/:barberShopId', async(req, res) => {
     }
 })
 
+//o .select serve para pegar apenas parâmetros específicos do salão
+router.get('/:id', async(req, res) => {
+    try{
+        const barberShop = await Barber.findById(req.params.id).select(
+            'capa nome endereco.cidade geo.cordinates telefone'
+        )
+        
+        const distance = turf.distance(
+            turf.point(barberShop.geo.cordinates),
+            turf.point([-30.043858, -51.103487])
+        );
+
+        res.json({error: false, barberShop, distance})
+    }catch(err){
+        res.json({error: true, message: err.message})
+    }
+});
 module.exports = router;

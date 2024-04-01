@@ -39,7 +39,7 @@ module.exports = {
     });
   },
 
-  deleteFileS3: function (key) {
+  deleteFileS3: function (Key) {
     return new Promise((resolve, reject) => {
       let IAM_USER_KEY = this.IAM_USER_KEY;
       let IAM_USER_SECRET = this.IAM_USER_SECRET;
@@ -55,7 +55,7 @@ module.exports = {
         s3bucket.deleteObject(
           {
             Bucket: BUCKET_NAME,
-            Key: key,
+            Key: Key,
           },
           function (err, data) {
             if (err) {

@@ -7,6 +7,29 @@ const Archives = require('../models/archive')
 const Services = require('../models/service');
 
 
+router.get('/barberShop/:barberShopId', async (req, res)=>{
+    try{
+        const services = await Services.find({
+            barberShopId: req.params.barberShopId,
+            status: {$ne: 'E'}
+        })
+        //retornará separado em diversos objetos para melhor visualização
+        let barberServices = [];
+        //for para trabalhar dentro de services
+        for(let i of services){
+            const files = await Archives.find({
+                model: 'Service',
+                referenciaId: i._id
+            })
+            //o i._doc separa apenas os dados que eu quero
+            barberServices.push({...i._doc, services});
+        }
+        res.json({error: false, servicos: barberServices})
+    }catch(err){
+        res.json({error: true, message: err.message})
+    }
+});
+
 router.put('/:id', async (req, res) => {
     const busBoy = new BusBoy({ headers: req.headers });
     busBoy.on('finish', async () => {
@@ -104,6 +127,34 @@ router.post('/', async (req, res) => {
         }
     });
     req.pipe(busBoy);
+});
+
+router.delete('/remove', async (req, res,) => {
+    try{
+        const { id } = req.body;
+
+        await aws.deleteFileS3(id);
+
+        await Archives.findOneAndDelete({
+            caminho: id
+         });
+        
+         res.json({error: false});
+    }catch(err){
+        res.json({error: true});
+    }
+});
+
+router.delete('/:id', async (req, res,) => {
+    try{
+        const { id } = req.params;
+
+        await Services.findByIdAndUpdate(id, {status: 'E'});
+        
+         res.json({error: false});
+    }catch(err){
+        res.json({error: true, message: err.message});
+    }
 });
 
 module.exports = router;

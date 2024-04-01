@@ -17,7 +17,7 @@ app.use(cors());
 //Variables
 app.set('port', 8000);
 
-app.use('/api', require('./src/routes/barber.routes'));
+app.use('/barber', require('./src/routes/barber.routes'));
 app.use('/services', require('./src/routes/services.routes'));
 
 app.listen(app.get('port'),() => {
